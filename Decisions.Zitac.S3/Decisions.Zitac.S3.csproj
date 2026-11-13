@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<!-- Every Decisions version from 9.26 onward runs on .NET 10. -->
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<RootNamespace>Decisions.Zitac.S3</RootNamespace>
+	</PropertyGroup>
+	<ItemGroup>
+		<!-- Compile-only references (Private=false, never packaged). AWSSDK.Core ships in core bin/,
+		     AWSSDK.S3 in the built-in Decisions.AWS module (a dependency in Module.Build.json).
+		     The copies in lib/ come from Decisions.Zitac.AWS (taken from 9.26.0.75786, AWSSDK.S3 4.0.7.7). -->
+		<Reference Include="AWSSDK.Core">
+			<HintPath>..\lib\AWSSDK.Core.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="AWSSDK.S3">
+			<HintPath>..\lib\AWSSDK.S3.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+		<!-- Decisions runs on ASP.NET Core, so this shared framework is always there at runtime
+		     (used for FileExtensionContentTypeProvider). Nothing extra is packaged. -->
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="DecisionsSDK" Version="9.25.0">
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+	</ItemGroup>
+</Project>

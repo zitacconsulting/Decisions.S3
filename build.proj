@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="build_all">
+
+    <PropertyGroup>
+        <!-- CreateDecisionsModule-GlobalTool 2.2.0 targets .NET 8; let it run on a newer runtime (e.g. only .NET 10 installed). -->
+        <DependencyDir>../Decisions.AWS</DependencyDir>
+    </PropertyGroup>
+
+    <Target Name="build_all">
+        <Exec Command="dotnet publish ./Decisions.Zitac.S3/Decisions.Zitac.S3.csproj --runtime linux-x64 --self-contained false --output ./Decisions.Zitac.S3/bin -c Release" />
+        <Exec Command="dotnet tool update --global CreateDecisionsModule-GlobalTool" />
+        <CallTarget Targets="build_module"/>
+    </Target>
+
+    <Target Name="build_module">
+        <!-- For every entry in Module.Build.json "Dependencies", CreateDecisionsModule requires a folder
+             ../<ModuleName without .zip> to exist (it only probes it for optional client DLLs). Create an
+             empty one for Decisions.AWS if missing, and remove it again afterwards. -->
+        <PropertyGroup>
+            <CreatedDependencyDir Condition="!Exists('$(DependencyDir)')">true</CreatedDependencyDir>
+        </PropertyGroup>
+        <MakeDir Directories="$(DependencyDir)" Condition="'$(CreatedDependencyDir)' == 'true'" />
+
+        <!-- CreateDecisionsModule truncates ModuleName to everything before the LAST "." of
+             -buildmodule's argument ("Decisions.Zitac.S3" would become "Decisions.Zitac").
+             The throwaway ".Module" suffix makes ModuleName the intended "Decisions.Zitac.S3". -->
+        <Exec Command="CreateDecisionsModule -buildmodule Decisions.Zitac.S3.Module -output &quot;.&quot; -buildfile Module.Build.json"
+              EnvironmentVariables="DOTNET_ROLL_FORWARD=Major" ContinueOnError="true">
+            <Output TaskParameter="ExitCode" PropertyName="PackageExitCode" />
+        </Exec>
+
+        <RemoveDir Directories="$(DependencyDir)" Condition="'$(CreatedDependencyDir)' == 'true'" />
+        <Error Text="CreateDecisionsModule failed (exit code $(PackageExitCode))" Condition="'$(PackageExitCode)' != '0'" />
+        <Move SourceFiles="Decisions.Zitac.S3.Module.zip" DestinationFiles="Decisions.Zitac.S3.zip" />
+    </Target>
+
+</Project>

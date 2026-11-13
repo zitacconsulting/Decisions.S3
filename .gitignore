@@ -1,0 +1,9 @@
+Decisions.Zitac.S3/bin/
+Decisions.Zitac.S3/obj/
+Decisions.Zitac.S3.Module.zip
+.vscode/settings.json
+.idea/
+
+# Never commit Decisions licenses or local test stacks
+*.License.zip
+Decisions.License.zip

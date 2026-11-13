@@ -1,0 +1,26 @@
+{
+	"Resources": {
+		"NoComponents": true,
+		"CoreServicesDlls": [
+			"./Decisions.Zitac.S3/bin/Decisions.Zitac.S3.dll"
+		],
+		"CustomImages": [
+			"s3.svg"
+		],
+		"CliDlls": null,
+		"WebPages": null,
+		"SilverlightDlls": null,
+		"AgentDlls": null,
+		"InstallScript": null,
+		"SqlScripts": null,
+		"ObjectsToImport": null,
+		"MsSqlScript": null
+	},
+	"Version": "1.0.0",
+	"ImagePath": "s3.svg",
+	"Dependencies": [{
+		"ModuleName": "Decisions.AWS.zip",
+		"AutoInstall": true
+	}],
+	"Description": "Steps for S3-compatible object storage (MinIO, Ceph, StorageGRID, AWS S3, ...): upload, download, search, file info, metadata and tags. Made by Zitac Consulting"
+}

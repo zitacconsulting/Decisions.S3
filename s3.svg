@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="S3 object storage">
+  <!-- Generic object-storage bucket (deliberately not the Amazon S3 icon: the module is for any S3-compatible storage) -->
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1f6fb2"/>
+      <stop offset="0.5" stop-color="#2f8fd8"/>
+      <stop offset="1" stop-color="#1f6fb2"/>
+    </linearGradient>
+  </defs>
+  <!-- bucket body -->
+  <path d="M76 132 L120 428 C124 456 186 476 256 476 C326 476 388 456 392 428 L436 132 Z" fill="url(#body)"/>
+  <!-- rim -->
+  <ellipse cx="256" cy="132" rx="180" ry="56" fill="#165a92"/>
+  <ellipse cx="256" cy="124" rx="180" ry="56" fill="#5fb0ec"/>
+  <ellipse cx="256" cy="124" rx="150" ry="40" fill="#0f4776"/>
+  <!-- objects in the bucket -->
+  <rect x="176" y="86" width="56" height="44" rx="6" fill="#f2f7fb"/>
+  <rect x="242" y="74" width="56" height="56" rx="6" fill="#ffffff"/>
+  <rect x="308" y="96" width="40" height="34" rx="6" fill="#d9e9f6"/>
+  <!-- S3 -->
+  <text x="256" y="350" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="150" fill="#ffffff">S3</text>
+</svg>
